@@ -9,9 +9,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Python dependencies for Wan2.2 via diffusers
-# Note: base image has torch 2.4.0 pre-installed, do NOT upgrade it
-RUN pip install --no-cache-dir --no-deps "diffusers>=0.35.0" && \
-    pip install --no-cache-dir \
+# CRITICAL: base image has torch 2.4.0 - pin it to prevent upgrades
+RUN pip install --no-cache-dir \
+    "torch==2.4.0" \
+    "diffusers>=0.35.0" \
     transformers \
     accelerate \
     safetensors \
